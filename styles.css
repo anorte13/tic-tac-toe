@@ -1,0 +1,80 @@
+body {
+    font-family: 'Silkscreen', cursive;
+}
+.header {
+    font-size: 40px;
+    color: grey;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 4rem;
+}
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 800px;
+}
+.player-container, .player2-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 500px;
+    margin-top: 150px;
+}
+.player-name {
+    font-size: 24px;
+    color: blue;
+}
+.player-icon > img {
+    height: 10rem;
+    width: 10rem;
+}
+.player-wins {
+    font-size: 24px;
+    color: blue;
+}
+.player2-name {
+    font-size: 24px;
+    color: red;
+}
+.player2-icon > img {
+    height: 9rem;
+    width: 9rem;
+}
+.player2-wins {
+    font-size: 24px;
+    color: red;
+}
+.game-board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.board {
+    display: grid;
+    grid-template-columns: 10em 10em 10em;
+    grid-template-rows: 10em 10em 10em;
+}
+.board-square-top {
+    background-color: white;
+    border: 1px solid black;
+    border-style: none solid solid none;
+}
+.board-square-middle {
+    background-color: white;
+    border: 1px solid black;
+    border-style: solid solid solid none;
+}
+.board-square-middle-right {
+    border-style: solid none solid solid;
+}
+.board-square {
+    background-color: white;
+    border: 1px solid black;
+}
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
