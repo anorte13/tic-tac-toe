@@ -8,6 +8,11 @@ body {
     align-items: flex-start;
     margin-left: 4rem;
 }
+.start-game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .container {
     display: flex;
     flex-direction: row;
@@ -55,23 +60,57 @@ body {
     display: grid;
     grid-template-columns: 10em 10em 10em;
     grid-template-rows: 10em 10em 10em;
+    gap: 0.3px;
 }
-.board-square-top {
+.board-square-top-left {
     background-color: white;
     border: 1px solid black;
     border-style: none solid solid none;
 }
+.board-square-top {
+    background-color: white;
+    border: 1px solid black;
+    border-style: none solid solid solid;
+}
+.board-square-top-right {
+    background-color: white;
+    border: 1px solid;
+    border-style: none none solid solid;
+}
+.board-square-middle-left {
+    background-color: white;
+    border: 1px solid;
+    border-style: solid solid solid none;
+}
 .board-square-middle {
     background-color: white;
     border: 1px solid black;
-    border-style: solid solid solid none;
+    border-style: solid solid solid solid;
 }
 .board-square-middle-right {
-    border-style: solid none solid solid;
-}
-.board-square {
     background-color: white;
     border: 1px solid black;
+    border-style: solid none solid solid;
+}
+.board-square-bottom-left {
+    background-color: white;
+    border: 1px solid black;
+    border-style: solid solid none none;
+}
+.board-square-bottom {
+    background-color: white;
+    border: 1px solid black;
+    border-style: solid solid none solid;
+}
+.board-square-bottom-right {
+    background-color: white;
+    border: 1px solid black;
+    border-style: solid none none solid;
+}
+#mark {
+    background-color: white;
+    height: 10rem;
+    width: 10rem;
 }
 .footer {
     display: flex;
