@@ -17,6 +17,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    flex: 1;
     height: 800px;
 }
 .player-container, .player2-container {
@@ -57,7 +58,7 @@ body {
     align-items: center;
 }
 .board {
-    display: grid;
+    display: none;
     grid-template-columns: 10em 10em 10em;
     grid-template-rows: 10em 10em 10em;
     gap: 0.3px;
@@ -107,10 +108,21 @@ body {
     border: 1px solid black;
     border-style: solid none none solid;
 }
-#mark {
+.before {
     background-color: white;
     height: 10rem;
     width: 10rem;
+    border: none;
+    font-size: 32px;
+    font-weight: bolder;
+}
+.mark {
+    background-color: white;
+    height: 10rem;
+    width: 10rem;
+    border: none;
+    font-size: 32px;
+    font-weight: bolder;
 }
 .footer {
     display: flex;
