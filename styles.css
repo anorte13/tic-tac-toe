@@ -1,4 +1,4 @@
-body {
+* {
     font-family: 'Silkscreen', cursive;
 }
 .header {
@@ -23,14 +23,39 @@ body {
 .player-container, .player2-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    height: 500px;
     margin-top: 150px;
 }
-.player-name {
+#player-name {
     font-size: 24px;
     color: blue;
+    border: none;
+    border-bottom: 2px solid blue;
+    outline: none;
+}
+#player-name-show {
+    font-size: 24px;
+    color: blue;
+
+}
+.enter-name {
+
+}.show-button {
+
+}
+input[type=text]{
+  width: 200px;
+  box-sizing: border-box;
+  background-color: white;
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  transition: width 0.4s ease-in-out;
+  text-align: center;
+}
+#player-name:focus {
+    width: 100%;
 }
 .player-icon > img {
     height: 10rem;
@@ -123,6 +148,7 @@ body {
     border: none;
     font-size: 32px;
     font-weight: bolder;
+    color: grey;
 }
 .footer {
     display: flex;

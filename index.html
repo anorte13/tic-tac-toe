@@ -19,14 +19,20 @@
     </div>
     <div class="container">
         <div class="player-container">
-            <div class="player-name">Player 1</div>
+            <div id="enter-name">
+                <input type="text" name="player1" id="player-name" placeholder="Player 1">
+            </div>
+            <div id="player-name-show"></div>
+            <div id="show-button">
+                <input type="button" onclick="Players.getPlayerName()" value="Enter">
+            </div>
             <div class="player-icon">
                 <img src="./images/player-icon.png" alt="Player Icon">
             </div>
             <div class="player-wins">Wins: </div>
         </div>
         <div class="game-board">
-            <div class="board" id="board">
+            <div class="board">
                 <div class="board-square-top-left" id="game0">
 
                 </div>

@@ -8,7 +8,7 @@ const Gameboard = (function() {
 
    function renderGameboard() {
     if(gameboard.style.display === 'grid') {
-        gameboard.style.dispay = 'none';
+        gameboard.style.display = 'none';
     } else {
         gameboard.style.display = 'grid';
     }
@@ -22,7 +22,6 @@ const Gameboard = (function() {
             addMarker(btn);
         })
     };
-    
    };
    function addMarker(button) {
     let mark = document.getElementById(`${button.id}`);
@@ -33,13 +32,23 @@ const Gameboard = (function() {
     renderGameboard
    };
 })();
+const Players = (function () {
 
-function CreatePlayer(firstName, playerWins) {
+    function getPlayerName(){
+        const firstName = document.getElementById('player-name').value;
+        const input = document.getElementById('enter-name');
+        const button = document.getElementById('show-button');
+        if(firstName.length === 0) {
+            alert('Enter player name!')
+        } else {
+            document.getElementById('player-name-show').innerHTML = firstName;
+            input.style.display = 'none';
+            button.style.display = 'none';
+        }
+    }
     return {
-        firstName: firstName,
-        playerWins:  playerWins,
-        getPlayerInfo() {
-            return firstName + playerWins;
-        },
+        getPlayerName
     };
-}
+})();
+
+   
