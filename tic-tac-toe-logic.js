@@ -2,6 +2,8 @@ const Gameboard = (function() {
    const game = document.querySelectorAll("[class^='board-square']");
    const start = document.getElementById('startGame');
    const gameboard = document.querySelector(".board");
+
+   let turn = true;
    let gameButtons = [];
    function renderGameboard() {
     if(gameboard.style.display === 'grid') {
@@ -11,26 +13,51 @@ const Gameboard = (function() {
     }
     for (let i = 0; i < game.length; i++) {
         let btn = document.createElement('button');
-        btn.id = 'mark' + i;
+        btn.id = 'mark' + i; //
         btn.classList = 'before'
         game[i].appendChild(btn);
         start.disabled = true;
         gameButtons.push(btn);
         game[i].addEventListener('click', function(){
             addMarker(btn);
+
         })
     };
    };
    function addMarker(button) {
-    if(Players.getPlayerName.called == true) {
-        let mark = document.getElementById(`${button.id}`);
-        mark.classList = 'mark'
-        mark.textContent = 'X';
+    const marker = document.getElementById(`${button.id}`)
+    if(marker.firstChild) {
+        return
     }
     else {
-        alert('Enter name before playing!')
+        if(Players.getPlayerName.called == true) {
+            if(turn){
+                turn = false;
+                return playerOneMarks(button)
+            }
+           else {
+               turn = true;
+               return playerTwoMarks(button)
+            }
+        }
+        else {
+            alert('Enter name before playing!')
+        }
+      }
     }
+   function playerOneMarks(button) {
+    let mark = document.getElementById(`${button.id}`);
+    mark.classList = 'mark'
+    mark.textContent = 'X'
+    console.log("Player one just marked")
    }
+   function playerTwoMarks(button) {
+    let mark2 = document.getElementById(`${button.id}`);
+    mark2.classList = 'mark'
+    mark2.textContent = 'O'
+    console.log("Player two just marked")
+   }
+   
    return {
     renderGameboard
    };
