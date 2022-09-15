@@ -156,6 +156,15 @@ input[type=text]{
     font-weight: bolder;
     color: grey;
 }
+.mark2 {
+    background-color: white;
+    height: 10rem;
+    width: 10rem;
+    border: none;
+    font-size: 32px;
+    font-weight: bolder;
+    color: grey;
+}
 .footer {
     display: flex;
     justify-content: center;

@@ -2,6 +2,7 @@ const Gameboard = (function() {
    const game = document.querySelectorAll("[class^='board-square']");
    const start = document.getElementById('startGame');
    const gameboard = document.querySelector(".board");
+   
 
    let turn = true;
    let gameButtons = [];
@@ -13,31 +14,30 @@ const Gameboard = (function() {
     }
     for (let i = 0; i < game.length; i++) {
         let btn = document.createElement('button');
-        btn.id = 'mark' + i; //
+        btn.id = 'mark' + i;
         btn.classList = 'before'
         game[i].appendChild(btn);
         start.disabled = true;
         gameButtons.push(btn);
         game[i].addEventListener('click', function(){
-            addMarker(btn);
-
+            addMarker(btn)
         })
     };
    };
    function addMarker(button) {
     const marker = document.getElementById(`${button.id}`)
     if(marker.firstChild) {
-        return
+        return;
     }
     else {
         if(Players.getPlayerName.called == true) {
             if(turn){
                 turn = false;
-                return playerOneMarks(button)
+                playerOneMarks(button), checkWinner()
             }
            else {
                turn = true;
-               return playerTwoMarks(button)
+               playerTwoMarks(button), checkWinner()
             }
         }
         else {
@@ -49,20 +49,33 @@ const Gameboard = (function() {
     let mark = document.getElementById(`${button.id}`);
     mark.classList = 'mark'
     mark.textContent = 'X'
-    console.log("Player one just marked")
+    mark.value = 'X';
    }
    function playerTwoMarks(button) {
     let mark2 = document.getElementById(`${button.id}`);
-    mark2.classList = 'mark'
-    mark2.textContent = 'O'
-    console.log("Player two just marked")
+    mark2.classList = 'mark2'
+    mark2.textContent = 'O';
+    mark2.value = 'O';
    }
-   
+   function checkWinner() {
+    console.log('Checking for winner')
+    if(gameButtons[0].value && gameButtons[1].value && gameButtons[2].value == 'X'){
+            console.log('Player 1 has Won');
+    }
+    else if(gameButtons[3].value && gameButtons[4].value && gameButtons[5].value == 'X'){
+    console.log('Player 1 wins!')
+   }
+   else if(gameButtons[6].value && gameButtons[7].value && gameButtons[8].value == 'X'){
+    console.log('Player 1 wins, yay!')
+   }   
+   }
    return {
-    renderGameboard
+    renderGameboard, checkWinner
    };
 })();
 const Players = (function () {
+    const playerOne = document.getElementById('player-name-show');
+    const playerTwo = document.querySelector('.player2-name')
     function getPlayerName() {
         getPlayerName.called = false
         const firstName = document.getElementById('player-name').value;
@@ -80,9 +93,10 @@ const Players = (function () {
     function validateName() {
        return getPlayerName.called = true;
     }
+    function playerScore() {
+
+    }
     return {
         getPlayerName
     };
 })();
-
-   
