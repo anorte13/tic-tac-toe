@@ -3,7 +3,7 @@ const Gameboard = (function() {
    const start = document.getElementById('startGame');
    const gameboard = document.querySelector(".board");
    const gameStatus = document.getElementById('game-status');
-   const player = document.getElementById('current-player');
+   const winningPlayer = document.getElementById('winner');
    
 
    let turn = true;
@@ -46,10 +46,11 @@ const Gameboard = (function() {
         }
         if(checkHorizontal() == true || checkDiagonals() == true){
             Players.playerOneWins();
-            return;
+            gameWinner(Players.getPlayerName());
         }
         else if(checkDiagonals() == false || checkHorizontal() == false) {
             Players.computerWins();
+            gameWinner('Computer');
         }
         else if (Players.getPlayerName.called == false){
             alert('Enter name before playing!')
@@ -97,13 +98,15 @@ const Gameboard = (function() {
         }
     }
     function currentPlayer() {
-        let player;
         if(turn) {
             return player = 'Computer';
         }
         else if (turn == false) {
             return Players.getPlayerName()
         }
+    }
+    function gameWinner(winner) {
+       return winningPlayer.innerHTML = `${winner} has won the game!`
     }
    return {
     renderGameboard
@@ -133,16 +136,15 @@ const Players = (function () {
     }
     function playerOneWins() {
         let winCount = 1;
-        console.log('YOU WON')
         const wins = document.getElementById('player-wins');
         wins.innerHTML = winCount++;
+        return;
     }
     function computerWins() {
         let winCount = 1;
-        console.log('COMPUTER WON!')
         const wins = document.getElementById('computer-wins');
         wins.innerHTML = winCount++;
-
+        return;
     }
     return {
         getPlayerName, playerOneWins, computerWins
