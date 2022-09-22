@@ -33,11 +33,11 @@ const Gameboard = (function() {
         if(Players.getPlayerName.called == true) {
             if(turn){
                 turn = false;
-                playerOneMarks(button), checkHorizontal();
+                playerOneMarks(button), checkHorizontal(), checkDiagonals();
             }
            else {
                turn = true;
-               playerTwoMarks(button), checkHorizontal();
+               playerTwoMarks(button), checkHorizontal(), checkDiagonals();
             }
         }
         else {
@@ -66,21 +66,28 @@ const Gameboard = (function() {
                 count++;
                 if(count == 3){
                     console.log('Player 1 wins!')
-                    return;
+                    return false;
                 }
             }
             if(gameButtons[j].value == 'O'){
                 computerCount++
                 if(computerCount == 3){
                     console.log('Computer Wins!');
-                    return;
+                    return false;
                 }
             }
             }
         }
     }
     function checkDiagonals() {
-
+        if(gameButtons[0].value == 'X' && gameButtons[4].value == 'X' && gameButtons[8].value == 'X') {
+            console.log('Diagonal Win!')
+            return false;
+        }
+        else if (gameButtons[2].value == 'X' && gameButtons[4].value == 'X' && gameButtons[6].value == 'X'){
+            console.log('Diagnol Win! Again')
+            return false;
+        }
     }
    return {
     renderGameboard
