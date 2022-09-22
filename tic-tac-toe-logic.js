@@ -2,6 +2,8 @@ const Gameboard = (function() {
    const game = document.querySelectorAll("[class^='board-square']");
    const start = document.getElementById('startGame');
    const gameboard = document.querySelector(".board");
+   const gameStatus = document.getElementById('game-status');
+   const player = document.getElementById('current-player');
    
 
    let turn = true;
@@ -26,6 +28,8 @@ const Gameboard = (function() {
    };
    function addMarker(button) {
     const marker = document.getElementById(`${button.id}`)
+    gameStatus.innerHTML = 'Current players turn: ' + currentPlayer();
+
     if(marker.firstChild) {
         return;
     }
@@ -40,14 +44,21 @@ const Gameboard = (function() {
                playerTwoMarks(button), checkHorizontal(), checkDiagonals();
             }
         }
-        else {
+        if(checkHorizontal() == true || checkDiagonals() == true){
+            Players.playerOneWins();
+            return;
+        }
+        else if(checkDiagonals() == false || checkHorizontal() == false) {
+            Players.computerWins();
+        }
+        else if (Players.getPlayerName.called == false){
             alert('Enter name before playing!')
         }
       }
     }
    function playerOneMarks(button) {
     let mark = document.getElementById(`${button.id}`);
-    mark.classList = 'mark'
+    mark.classList = 'mark';
     mark.textContent = 'X'
     mark.value = 'X';
    }
@@ -65,14 +76,12 @@ const Gameboard = (function() {
             if(gameButtons[j].value == 'X'){
                 count++;
                 if(count == 3){
-                    console.log('Player 1 wins!')
-                    return false;
+                    return true;
                 }
             }
             if(gameButtons[j].value == 'O'){
                 computerCount++
                 if(computerCount == 3){
-                    console.log('Computer Wins!');
                     return false;
                 }
             }
@@ -81,12 +90,19 @@ const Gameboard = (function() {
     }
     function checkDiagonals() {
         if(gameButtons[0].value == 'X' && gameButtons[4].value == 'X' && gameButtons[8].value == 'X') {
-            console.log('Diagonal Win!')
-            return false;
+            return true;
         }
         else if (gameButtons[2].value == 'X' && gameButtons[4].value == 'X' && gameButtons[6].value == 'X'){
-            console.log('Diagnol Win! Again')
             return false;
+        }
+    }
+    function currentPlayer() {
+        let player;
+        if(turn) {
+            return player = 'Computer';
+        }
+        else if (turn == false) {
+            return Players.getPlayerName()
         }
     }
    return {
@@ -96,6 +112,7 @@ const Gameboard = (function() {
 const Players = (function () {
     const playerOne = document.getElementById('player-name-show');
     const playerTwo = document.querySelector('.player2-name')
+
     function getPlayerName() {
         getPlayerName.called = false
         const firstName = document.getElementById('player-name').value;
@@ -105,15 +122,29 @@ const Players = (function () {
             alert('Player name cannot be empty')
         } else {
             validateName()
-            document.getElementById('player-name-show').innerHTML = firstName;
+            let name = document.getElementById('player-name-show').innerHTML = firstName;
             input.style.display = 'none';
             button.style.display = 'none';
+            return name;
         }
     }
     function validateName() {
        return getPlayerName.called = true;
     }
+    function playerOneWins() {
+        let winCount = 1;
+        console.log('YOU WON')
+        const wins = document.getElementById('player-wins');
+        wins.innerHTML = winCount++;
+    }
+    function computerWins() {
+        let winCount = 1;
+        console.log('COMPUTER WON!')
+        const wins = document.getElementById('computer-wins');
+        wins.innerHTML = winCount++;
+
+    }
     return {
-        getPlayerName
+        getPlayerName, playerOneWins, computerWins
     };
 })();
