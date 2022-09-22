@@ -33,11 +33,11 @@ const Gameboard = (function() {
         if(Players.getPlayerName.called == true) {
             if(turn){
                 turn = false;
-                playerOneMarks(button), checkWinner()
+                playerOneMarks(button), checkHorizontal();
             }
            else {
                turn = true;
-               playerTwoMarks(button), checkWinner()
+               playerTwoMarks(button), checkHorizontal();
             }
         }
         else {
@@ -57,20 +57,33 @@ const Gameboard = (function() {
     mark2.textContent = 'O';
     mark2.value = 'O';
    }
-   function checkWinner() {
-    console.log('Checking for winner')
-    if(gameButtons[0].value && gameButtons[1].value && gameButtons[2].value == 'X'){
-            console.log('Player 1 has Won');
+   function checkHorizontal() {
+    for (let i = 0; i < 3; i++) {
+        let count = 0;
+        let computerCount = 0;
+        for (let j = i * 3; j < i * 3 + 3; j++) {
+            if(gameButtons[j].value == 'X'){
+                count++;
+                if(count == 3){
+                    console.log('Player 1 wins!')
+                    return;
+                }
+            }
+            if(gameButtons[j].value == 'O'){
+                computerCount++
+                if(computerCount == 3){
+                    console.log('Computer Wins!');
+                    return;
+                }
+            }
+            }
+        }
     }
-    else if(gameButtons[3].value && gameButtons[4].value && gameButtons[5].value == 'X'){
-    console.log('Player 1 wins!')
-   }
-   else if(gameButtons[6].value && gameButtons[7].value && gameButtons[8].value == 'X'){
-    console.log('Player 1 wins, yay!')
-   }   
-   }
+    function checkDiagonals() {
+
+    }
    return {
-    renderGameboard, checkWinner
+    renderGameboard
    };
 })();
 const Players = (function () {
@@ -92,9 +105,6 @@ const Players = (function () {
     }
     function validateName() {
        return getPlayerName.called = true;
-    }
-    function playerScore() {
-
     }
     return {
         getPlayerName
