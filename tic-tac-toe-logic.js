@@ -140,9 +140,6 @@ const Gameboard = (function() {
             return null;
         }
     }
-    function checkForDraw(){
-        //enter code for a draw here
-    }
      function currentPlayer() {
          if(turn) {
              return Players.getPlayerTwoName();
