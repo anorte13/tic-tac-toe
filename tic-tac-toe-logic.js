@@ -36,22 +36,22 @@ const Gameboard = (function() {
          if(Players.getPlayerName.called == true && Players.getPlayerTwoName.called == true) {
              if(turn){
                  turn = false;
-                 playerOneMarks(button), checkHorizontal(), checkDiagonals(), checkVertical(), checkForDraw();
+                 playerOneMarks(button), checkHorizontal(), checkDiagonals(), checkVertical();
              }
             else {
                 turn = true;
-                playerTwoMarks(button), checkHorizontal(), checkDiagonals(), checkVertical(), checkForDraw();
+                playerTwoMarks(button), checkHorizontal(), checkDiagonals(), checkVertical();
              }
          }
          if(checkHorizontal() == true || checkDiagonals() == true || checkVertical() == true){
              Players.playerOneWins();
              gameWinner(Players.getPlayerName());
-             return true;
+             return;
          }
          else if(checkDiagonals() == false || checkHorizontal() == false || checkVertical() == false) {
              Players.computerWins();
              gameWinner(Players.getPlayerTwoName());
-             return false;
+             return;
          }
         else if (Players.getPlayerName.called == false || Players.getPlayerTwoName.called == false){
              alert('Enter name before playing!')
@@ -149,10 +149,23 @@ const Gameboard = (function() {
          }
      }
      function gameWinner(winner) {
-        return winningPlayer.innerHTML = `${winner} has won the game!`
+        gameWinner.called = true;
+        restartGame(); 
+        return winningPlayer.innerHTML = `${winner} has won the game!`;
+     }
+     function restartGame(){
+        const restart = document.getElementById('restart');
+        if(gameWinner.called){
+            const restartBtn = document.createElement('button');
+            restartBtn.innerHTML = "Restart";
+            restartBtn.onclick = function() {
+                gameButtons = [];
+            }
+            restart.appendChild(restartBtn);
+        }
      }
     return {
-     renderGameboard, checkForDraw
+     renderGameboard
     };
  })();
  const Players = (function () {
