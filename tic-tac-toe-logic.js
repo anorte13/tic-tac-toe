@@ -56,8 +56,21 @@ const Gameboard = (function() {
         else if (Players.getPlayerName.called == false || Players.getPlayerTwoName.called == false){
              alert('Enter name before playing!')
          }
-       }
-     }
+         else {
+            let count = 0;
+            for(let i = 0; i < gameButtons.length; i++){
+                if(gameButtons[i].value){
+                    count++
+                    if(count == 9){
+                        if(addMarker != true || addMarker != false){
+                            gameWinner('No one');
+                        }
+                    }
+                }
+                }
+            }
+         }
+    }
     function playerOneMarks(button) {
      let mark = document.getElementById(`${button.id}`);
      mark.classList = 'mark';
@@ -128,9 +141,7 @@ const Gameboard = (function() {
         }
     }
     function checkForDraw(){
-        if(addMarker === undefined){
-            console.log('No winner!');
-        }
+        //enter code for a draw here
     }
      function currentPlayer() {
          if(turn) {
