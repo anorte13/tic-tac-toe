@@ -28,6 +28,8 @@
     justify-content: space-around;
     align-items: center;
     margin-top: 150px;
+}.player2-container{
+    margin-bottom: 50px;
 }
 #player-name {
     font-size: 24px;
@@ -47,10 +49,12 @@
 .highlightedPlayer {
     background-color: aqua;
 }
-.enter-name {
-
-}.show-button {
-
+#player2{
+    font-size: 24px;
+    color: red;
+    border: none;
+    border-bottom: 2px solid red;
+    outline: none;
 }
 input[type=text]{
   width: 200px;
@@ -77,9 +81,13 @@ input[type=text]{
     font-size: 24px;
     color: red;
 }
+#player-two-show {
+    font-size: 24px;
+    color: red
+}
 .player2-icon > img {
-    height: 9rem;
-    width: 9rem;
+    height: 10rem;
+    width: 10rem;
 }
 .player2-wins {
     font-size: 24px;

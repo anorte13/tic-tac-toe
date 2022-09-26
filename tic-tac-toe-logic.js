@@ -29,30 +29,31 @@ const Gameboard = (function() {
     function addMarker(button) {
      const marker = document.getElementById(`${button.id}`)
      gameStatus.innerHTML = 'Current players turn: ' + currentPlayer();
- 
      if(marker.firstChild) {
          return;
      }
      else {
-         if(Players.getPlayerName.called == true) {
+         if(Players.getPlayerName.called == true && Players.getPlayerTwoName.called == true) {
              if(turn){
                  turn = false;
-                 playerOneMarks(button), checkHorizontal(), checkDiagonals(), checkVertical();
+                 playerOneMarks(button), checkHorizontal(), checkDiagonals(), checkVertical(), checkForDraw();
              }
             else {
                 turn = true;
-                playerTwoMarks(button), checkHorizontal(), checkDiagonals(), checkVertical();
+                playerTwoMarks(button), checkHorizontal(), checkDiagonals(), checkVertical(), checkForDraw();
              }
          }
          if(checkHorizontal() == true || checkDiagonals() == true || checkVertical() == true){
              Players.playerOneWins();
              gameWinner(Players.getPlayerName());
+             return true;
          }
          else if(checkDiagonals() == false || checkHorizontal() == false || checkVertical() == false) {
              Players.computerWins();
-             gameWinner('Computer');
+             gameWinner(Players.getPlayerTwoName());
+             return false;
          }
-         else if (Players.getPlayerName.called == false){
+        else if (Players.getPlayerName.called == false || Players.getPlayerTwoName.called == false){
              alert('Enter name before playing!')
          }
        }
@@ -121,44 +122,66 @@ const Gameboard = (function() {
          }
          else if(gameButtons[2].value == 'O' && gameButtons[4].value == 'O' && gameButtons[6].value == 'O'){
             return false;
-     }
+        }
+        else {
+            return null;
+        }
+    }
+    function checkForDraw(){
+        if(addMarker === undefined){
+            console.log('No winner!');
+        }
     }
      function currentPlayer() {
          if(turn) {
-             return player = 'Computer';
+             return Players.getPlayerTwoName();
          }
          else if (turn == false) {
-             return Players.getPlayerName()
+             return Players.getPlayerName();
          }
      }
      function gameWinner(winner) {
         return winningPlayer.innerHTML = `${winner} has won the game!`
      }
     return {
-     renderGameboard
+     renderGameboard, checkForDraw
     };
  })();
  const Players = (function () {
-     const playerOne = document.getElementById('player-name-show');
-     const playerTwo = document.querySelector('.player2-name')
- 
+
      function getPlayerName() {
          getPlayerName.called = false
          const firstName = document.getElementById('player-name').value;
          const input = document.getElementById('enter-name');
          const button = document.getElementById('show-button');
          if(firstName.length === 0) {
-             alert('Player name cannot be empty')
+             alert('Player name cannot be empty');
          } else {
-             validateName()
+             validateName(getPlayerName)
              let name = document.getElementById('player-name-show').innerHTML = firstName;
              input.style.display = 'none';
              button.style.display = 'none';
              return name;
          }
      }
-     function validateName() {
-        return getPlayerName.called = true;
+     function getPlayerTwoName() {
+        getPlayerTwoName.called = false;
+        const playerTwo = document.getElementById('player2').value;
+        const input = document.querySelector('.player2-name');
+        const button = document.getElementById('show-button-two');
+        if(playerTwo.length === 0){
+            alert('Player 2 name cannot be empty');
+        }
+        else {
+            validateName(getPlayerTwoName);
+            let name = document.getElementById('player-two-show').innerHTML = playerTwo;
+            input.style.display = 'none';
+            button.style.display = 'none';
+            return name;
+        }
+     }
+     function validateName(name) {
+        return name.called = true;
      }
      function playerOneWins() {
          let winCount = 1;
@@ -173,6 +196,6 @@ const Gameboard = (function() {
          return;
      }
      return {
-         getPlayerName, playerOneWins, computerWins
+         getPlayerName, playerOneWins, computerWins, getPlayerTwoName
      };
  })();
